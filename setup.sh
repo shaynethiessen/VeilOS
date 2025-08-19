@@ -1,45 +1,32 @@
-# Check that user has admin privileges
-if [ "$EUID" -ne 0 ]
-  then echo "The install script must be run as root."
-  exit
+#!/bin/sh
+# VeilOS setup script
+# Must be run as root on Debian minimal
+
+set -e
+
+# Check privileges
+if [ "$EUID" -ne 0 ]; then
+  echo "The install script must be run as root."
+  exit 1
 fi
 
-m_flag=''
+# Reset APT sources for VeilOS
+cat > /etc/apt/sources.list <<EOF
+# VeilOS Packages
+deb http://deb.debian.org/debian/ trixie main contrib non-free
+deb-src http://deb.debian.org/debian/ trixie main contrib non-free
 
-while getopts 'm:' flag; do
-  case "${flag}" in
-    m) m_flag="${OPTARG}" ;;
-    *) echo "Invalid flags were included, terminating script!"
-       exit 1;;
-  esac
-done
+deb http://security.debian.org/debian-security trixie-security main contrib non-free
+deb-src http://security.debian.org/debian-security trixie-security main contrib non-free
 
-# Skips these commands if running in test mode
-if [ "$m_flag" != 'test' ]
-  then
-  # Install default packages
-  rm -rf /etc/apt/sources.list
+deb http://deb.debian.org/debian/ trixie-updates main contrib non-free
+deb-src http://deb.debian.org/debian/ trixie-updates main contrib non-free
+EOF
 
-  echo "# Veil OS Packages" | tee -a /etc/apt/sources.list
-  echo "deb http://deb.debian.org/debian/ trixie main non-free contrib" | tee -a /etc/apt/sources.list
-  echo "deb-src http://deb.debian.org/debian/ trixie main non-free contrib" | tee -a /etc/apt/sources.list
-  echo " " | tee -a /etc/apt/sources.list
-  echo "deb http://security.debian.org/debian-security trixie-security main non-free contrib" | tee -a /etc/apt/sources.list
-  echo "deb-src http://security.debian.org/debian-security trixie-security main non-free contrib" | tee -a /etc/apt/sources.list
-  echo " " | tee -a /etc/apt/sources.list
-  echo "deb http://deb.debian.org/debian/ trixie-updates main non-free contrib" | tee -a /etc/apt/sources.list
-  echo "deb-src http://deb.debian.org/debian/ trixie-updates main non-free contrib" | tee -a /etc/apt/sources.list
-fi
-
-apt-get update -y;
-apt-get upgrade -y;
+# Update and upgrade system
 DEBIAN_FRONTEND=noninteractive
+apt-get update -y
+apt-get upgrade -y
 
-#./install/core.sh
-#./install/applications.sh
-#./install/firmware.sh
-#./install/networking.sh
-#./install/security.sh
-#./install/utilities.sh
-
-#./configuration/other.sh
+# Run modular install scripts
+./install/core.sh
