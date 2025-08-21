@@ -3,6 +3,7 @@
 # Must be run as root on Debian minimal
 
 set -e
+set -u
 
 # Check privileges
 if [ "$EUID" -ne 0 ]; then
@@ -10,23 +11,17 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-# Reset APT sources for VeilOS
-cat > /etc/apt/sources.list <<EOF
-# VeilOS Packages
-deb http://deb.debian.org/debian/ trixie main contrib non-free
-deb-src http://deb.debian.org/debian/ trixie main contrib non-free
-
-deb http://security.debian.org/debian-security trixie-security main contrib non-free
-deb-src http://security.debian.org/debian-security trixie-security main contrib non-free
-
-deb http://deb.debian.org/debian/ trixie-updates main contrib non-free
-deb-src http://deb.debian.org/debian/ trixie-updates main contrib non-free
-EOF
-
-# Update and upgrade system
-DEBIAN_FRONTEND=noninteractive
-apt-get update -y
-apt-get upgrade -y
-
 # Run modular install scripts
-./install/core.sh
+./install/pre-install-config.sh
+./install/user-interface.sh
+./install/post-install-config.sh
+
+REBOOT="N"
+if [ -t 0 ]; then
+    echo "Install is complete. Reboot now? (y/N)"
+    read -r REBOOT
+fi
+
+if [ "$REBOOT" = "y" ] || [ "$REBOOT" = "Y" ]; then
+    reboot
+fi
