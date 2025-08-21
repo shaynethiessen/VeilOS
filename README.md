@@ -13,4 +13,5 @@ Tools for building VeilOS
 ### Run Script
 1. Install Git ```sudo apt install git```
 2. Clone repo ```git clone https://github.com/shaynethiessen/VeilOS.git```
+3. `cd VeilOS`
 3. Run script ```./setup.sh```

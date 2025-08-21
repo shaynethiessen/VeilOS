@@ -6,7 +6,7 @@ set -e
 set -u
 
 # Check privileges
-if [ "$EUID" -ne 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
   echo "The install script must be run as root."
   exit 1
 fi
