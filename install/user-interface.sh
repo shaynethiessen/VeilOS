@@ -1,26 +1,28 @@
 #!/bin/sh
 
-echo "Installing KDE Plasma and core apps..."
+info "Setting up User Interface..."
 
-echo "Installing KDE Plasma Desktop: provides the core desktop environment."
-echo "Installing SDDM: Simple Desktop Display Manager (login screen)."
-echo "Installing Dolphin: file manager for KDE."
-echo "Installing Konsole: terminal emulator for KDE."
-echo "Installing Plasma Network Manager: network management tools."
-echo "Installing Plasma Audio: audio configuration tools for KDE."
-echo "Installing Network Manager core: essential networking backend."
+info "Installing KDE Plasma Desktop: provides the core desktop environment."
+info "Installing SDDM: Simple Desktop Display Manager (login screen)."
+info "Installing SDDM Breeze theme: modern KDE login theme."
+info "Installing Dolphin: file manager for KDE."
+info "Installing Konsole: terminal emulator for KDE."
+info "Installing Plasma Network Manager: network management tools."
+info "Installing Plasma Audio: audio configuration tools for KDE."
+info "Installing Network Manager core: essential networking backend."
 
 apt-get install -y --no-install-recommends \
     kde-plasma-desktop \
     sddm \
+    sddm-theme-breeze \
     dolphin \
     konsole \
     plasma-nm \
     plasma-pa \
     network-manager
 
-echo "Setting SDDM as default display manager..."
+info "Setting SDDM as default display manager..."
 systemctl enable sddm
 systemctl set-default graphical.target
 
-echo "Minimal KDE Plasma installation complete!"
+info "User Interface Configuration Complete!"
