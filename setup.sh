@@ -14,8 +14,9 @@ fi
 
 # Run modular install scripts
 sh ./install/pre-install-config.sh
-sh ./install/user-interface.sh
+sh ./install/desktop-environment.sh
 sh ./install/security.sh
+sh ./install/media.sh
 sh ./install/post-install-config.sh
 
 REBOOT="N"
