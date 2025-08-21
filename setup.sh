@@ -12,9 +12,9 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # Run modular install scripts
-./install/pre-install-config.sh
-./install/user-interface.sh
-./install/post-install-config.sh
+sh ./install/pre-install-config.sh
+sh ./install/user-interface.sh
+sh ./install/post-install-config.sh
 
 REBOOT="N"
 if [ -t 0 ]; then
