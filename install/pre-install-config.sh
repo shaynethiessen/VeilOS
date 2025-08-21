@@ -1,4 +1,5 @@
 #!/bin/sh
+. ./helper.sh;
 
 # Generate 8 random alphanumeric characters
 RAND=$(tr -dc 'a-z0-9' </dev/urandom | head -c 8)

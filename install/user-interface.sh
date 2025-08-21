@@ -1,4 +1,5 @@
 #!/bin/sh
+. ./helper.sh;
 
 info "Setting up User Interface..."
 

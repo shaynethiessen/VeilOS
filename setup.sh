@@ -1,14 +1,7 @@
 #!/bin/sh
+. ./helper.sh;
 # VeilOS setup script
 # Must be run as root on Debian minimal
-
-ORANGE="\e[38;5;208m"
-RESET="\e[0m"
-
-# Function for orange output
-info() {
-    echo -e "${ORANGE}$1${RESET}"
-}
 
 set -e
 set -u

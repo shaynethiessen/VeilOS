@@ -1,4 +1,5 @@
 #!/bin/sh
+. ./helper.sh;
 
 info "Setting up Security..."
 
@@ -10,6 +11,6 @@ apt-get install -y --no-install-recommends sudo ufw gufw
 
 info "Enabling and configuring UFW firewall..."
 ufw default deny incoming
-ufw enable
+ufw --force enable
 
 info "Security Configuration Complete!"
