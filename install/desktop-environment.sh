@@ -3,14 +3,14 @@
 
 info "Setting up User Interface..."
 
-info "Installing KDE Plasma Desktop: provides the core desktop environment."
-info "Installing SDDM: Simple Desktop Display Manager (login screen)."
-info "Installing SDDM Breeze theme: modern KDE login theme."
-info "Installing Dolphin: file manager for KDE."
-info "Installing Konsole: terminal emulator for KDE."
-info "Installing Plasma Network Manager: network management tools."
-info "Installing Plasma Audio: audio configuration tools for KDE."
-info "Installing Network Manager core: essential networking backend."
+info "Installing kde-plasma-desktop: KDE Plasma Desktop environment."
+info "Installing sddm: Simple Desktop Display Manager (login screen)."
+info "Installing sddm-theme-breeze: Breeze theme for SDDM login screen."
+info "Installing dolphin: KDE file manager."
+info "Installing konsole: KDE terminal emulator."
+info "Installing plasma-nm: KDE Plasma Network Manager applet."
+info "Installing plasma-pa: KDE Plasma Audio configuration tools."
+info "Installing network-manager: core networking backend."
 
 apt-get install -y --no-install-recommends \
     kde-plasma-desktop \
