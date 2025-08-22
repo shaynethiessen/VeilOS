@@ -13,11 +13,12 @@ info "Installing partitionmanager: KDE partition management tool."
 info "Installing kscreen: KDE display configuration service."
 info "Installing plasma-workspace-wallpapers: default wallpapers for KDE Plasma"
 info "Installing filelight: graphical disk usage analyzer for KDE"
+info "Installing kio-extras: provides additional KDE I/O plugins and thumbnailers for improved file manager functionality"
 
 apt-get install -y --no-install-recommends \
   plasma-systemmonitor xdg-user-dirs kinfocenter systemsettings \
   kde-spectacle kcalc partitionmanager kscreen plasma-workspace-wallpapers \
-  filelight
+  filelight kio-extras
 
 # Create user directories
 xdg-user-dirs-update
