@@ -14,11 +14,13 @@ info "Installing kscreen: KDE display configuration service."
 info "Installing plasma-workspace-wallpapers: default wallpapers for KDE Plasma"
 info "Installing filelight: graphical disk usage analyzer for KDE"
 info "Installing kio-extras: provides additional KDE I/O plugins and thumbnailers for improved file manager functionality"
+info "Installing plasma-discover: KDE graphical software center for installing and managing apps"
+info "Installing kate: advanced KDE text editor with syntax highlighting and multi-tab support"
 
 apt-get install -y --no-install-recommends \
   plasma-systemmonitor xdg-user-dirs kinfocenter systemsettings \
   kde-spectacle kcalc partitionmanager kscreen plasma-workspace-wallpapers \
-  filelight kio-extras
+  filelight kio-extras plasma-discover kate
 
 # Create user directories
 xdg-user-dirs-update
