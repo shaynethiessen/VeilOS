@@ -1,6 +1,29 @@
 #!/bin/sh
 . ./helper.sh;
 
+NEW_OS_NAME="VeilOS"
+NEW_PRETTY_NAME="VeilOS Linux"
+
+info "Changing OS name to $NEW_OS_NAME"
+
+# Backup existing os-release
+cp /etc/os-release /etc/os-release.bak
+
+# Overwrite /etc/os-release
+cat > /etc/os-release <<EOF
+NAME="$NEW_OS_NAME"
+VERSION="1.0"
+ID=veil
+PRETTY_NAME="$NEW_PRETTY_NAME"
+VERSION_ID="0.1"
+EOF
+
+# Optional: update /etc/issue and /etc/issue.net (login banners)
+echo "$NEW_PRETTY_NAME" > /etc/issue
+echo "$NEW_PRETTY_NAME" > /etc/issue.net
+
+info "OS name successfully updated to $NEW_OS_NAME"
+
 # Generate 8 random alphanumeric characters
 RAND=$(tr -dc 'a-z0-9' </dev/urandom | head -c 8)
 
@@ -17,7 +40,7 @@ hostname "$NEW_HOSTNAME"
 hostname --fqdn "$FQDN" 2>/dev/null || true
 
 # Update /etc/hostname
-info "$NEW_HOSTNAME" > /etc/hostname
+echo "$NEW_HOSTNAME" > /etc/hostname
 
 # Update /etc/hosts
 # Replace 127.0.0.1 and 127.0.1.1 entries
@@ -33,23 +56,24 @@ info "Hostname and domain successfully set."
 # Set APT sources for VeilOS
 cat > /etc/apt/sources.list <<EOF
 # VeilOS Packages
-deb http://deb.debian.org/debian/ trixie main contrib non-free
-deb-src http://deb.debian.org/debian/ trixie main contrib non-free
+deb https://deb.debian.org/debian/ trixie main contrib non-free
+deb-src https://deb.debian.org/debian/ trixie main contrib non-free
 
-deb http://security.debian.org/debian-security trixie-security main contrib non-free
-deb-src http://security.debian.org/debian-security trixie-security main contrib non-free
+deb https://security.debian.org/debian-security trixie-security main contrib non-free
+deb-src https://security.debian.org/debian-security trixie-security main contrib non-free
 
-deb http://deb.debian.org/debian/ trixie-updates main contrib non-free
-deb-src http://deb.debian.org/debian/ trixie-updates main contrib non-free
+deb https://deb.debian.org/debian/ trixie-updates main contrib non-free
+deb-src https://deb.debian.org/debian/ trixie-updates main contrib non-free
 EOF
+sync
 
 # Update and upgrade all existing packages
 export DEBIAN_FRONTEND=noninteractive
 
 # Remove package usage survey
-apt-get remove -y kde-inotify-survey
+apt-get purge -y kde-inotify-survey
 
 apt-get update -y
-apt-get upgrade -y
+apt-get -y --no-install-recommends upgrade
 
 info "APT sources updated and system upgraded"

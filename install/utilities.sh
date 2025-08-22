@@ -9,10 +9,15 @@ info "Installing kinfocenter: KDE system information tool."
 info "Installing systemsettings: KDE Plasma configuration utility."
 info "Installing kde-spectacle: KDE screenshot tool."
 info "Installing kcalc: KDE calculator application."
-info "Installing partitionmanager: KDE disk partition management tool."
+info "Installing partitionmanager: KDE partition management tool."
+info "Installing kscreen: KDE display configuration service."
+info "Installing plasma-workspace-wallpapers: default wallpapers for KDE Plasma"
+info "Installing filelight: graphical disk usage analyzer for KDE"
 
 apt-get install -y --no-install-recommends \
-  plasma-systemmonitor xdg-user-dirs kinfocenter systemsettings kde-spectacle kcalc partitionmanager
+  plasma-systemmonitor xdg-user-dirs kinfocenter systemsettings \
+  kde-spectacle kcalc partitionmanager kscreen plasma-workspace-wallpapers \
+  filelight
 
 # Create user directories
 xdg-user-dirs-update
