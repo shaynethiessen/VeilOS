@@ -11,18 +11,18 @@ info "Installing clamtk: graphical interface for ClamAV."
 
 apt-get install -y --no-install-recommends sudo ufw gufw clamav clamtk
 
-info "Enabling and configuring UFW firewall..."
-# Clear previous ufw settings
+info "Configuring UFW firewall..."
+# Reset previous rules
 ufw --force reset
 
-# Default to deny
+# Default deny
 ufw default deny incoming
 ufw default deny outgoing
 
-# Allow only essential outgoing connections
+# Allow essential outgoing connections
 ufw allow out 53     # DNS
 ufw allow out 443    # HTTPS
-ufw allow out 123    # NTP (time sync)
+ufw allow out 123    # NTP
 
 ufw --force enable
 systemctl enable ufw
@@ -34,7 +34,26 @@ freshclam
 systemctl start clamav-freshclam || true
 systemctl enable clamav-freshclam || true
 
-info "Resetting Firefox preferences for all existing profiles..."
+info "Enforcing HTTPS-Only Mode in Firefox for all users..."
+
+# Create mozilla.cfg
+MOZILLA_CFG="/usr/lib/firefox-esr/mozilla.cfg"
+cat > "$MOZILLA_CFG" <<'EOF'
+//
+lockPref("dom.security.https_only_mode", true);
+EOF
+chmod 644 "$MOZILLA_CFG"
+
+# Create local-settings.js
+LOCAL_SETTINGS="/usr/lib/firefox-esr/defaults/pref/local-settings.js"
+mkdir -p "$(dirname "$LOCAL_SETTINGS")"
+cat > "$LOCAL_SETTINGS" <<'EOF'
+pref("general.config.filename", "mozilla.cfg");
+pref("general.config.obscure_value", 0);
+EOF
+chmod 644 "$LOCAL_SETTINGS"
+
+# Clear existing prefs.js to ensure policy takes effect
 for profile in /home/*/.mozilla/firefox/*.default*; do
     [ -d "$profile" ] || continue
     prefs_file="$profile/prefs.js"
@@ -44,22 +63,9 @@ for profile in /home/*/.mozilla/firefox/*.default*; do
     fi
 done
 
-info "Setting default Firefox settings all users..."
-POLICY_DIR="/etc/firefox-esr/policies"
-mkdir -p "$POLICY_DIR"
-cat > "$POLICY_DIR/policies.json" <<EOF
-{
-  "policies": {
-    "HTTPSOnlyMode": {
-      "Enabled": true,
-      "Locked": true
-    }
-  }
-}
-EOF
+# Restart Firefox to apply policy
+pkill -f firefox-esr || true
 sync
 
-# Clear existing firefox profiles
-rm -rf /home/*/.mozilla/firefox
-
+info "HTTPS-Only Mode enforced for all users."
 info "Security Configuration Complete!"
