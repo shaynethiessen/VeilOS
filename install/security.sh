@@ -13,7 +13,7 @@ apt-get install -y --no-install-recommends sudo ufw gufw clamav clamtk
 
 info "Enabling and configuring UFW firewall..."
 # Clear previous ufw settings
-ufw reset
+ufw --force reset
 
 # Default to deny
 ufw default deny incoming
@@ -49,5 +49,13 @@ cat > "$POLICY_DIR/policies.json" <<EOF
 EOF
 sync
 
+# Apply policy to existing user profiles
+for profile in /home/*/.mozilla/firefox/*.default*; do
+    [ -d "$profile" ] || continue
+    info "Resetting HTTPS-Only preference in $profile"
+    # Remove any cached preference that might conflict
+    sed -i '/^user_pref("dom.security.https_only_mode",/d' "$profile/prefs.js" 2>/dev/null || true
+done
+sync
 
 info "Security Configuration Complete!"
