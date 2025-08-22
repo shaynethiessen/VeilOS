@@ -34,8 +34,18 @@ freshclam
 systemctl start clamav-freshclam || true
 systemctl enable clamav-freshclam || true
 
-info "Enforcing Firefox HTTPS-Only Mode for all users..."
-POLICY_DIR="/usr/lib/firefox-esr/distribution"
+info "Resetting Firefox preferences for all existing profiles..."
+for profile in /home/*/.mozilla/firefox/*.default*; do
+    [ -d "$profile" ] || continue
+    prefs_file="$profile/prefs.js"
+    if [ -f "$prefs_file" ]; then
+        info "Deleting $prefs_file to reset Firefox preferences"
+        rm -f "$prefs_file"
+    fi
+done
+
+info "Setting default Firefox settings all users..."
+POLICY_DIR="/etc/firefox-esr/policies"
 mkdir -p "$POLICY_DIR"
 cat > "$POLICY_DIR/policies.json" <<EOF
 {
