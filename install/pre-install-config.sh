@@ -1,28 +1,27 @@
 #!/bin/sh
 . ./helper.sh;
 
-NEW_OS_NAME="VeilOS"
-NEW_PRETTY_NAME="VeilOS Linux"
+OS_NAME="VeilOS"
 
-info "Changing OS name to $NEW_OS_NAME"
+info "Changing OS name to $OS_NAME"
 
 # Backup existing os-release
 cp /etc/os-release /etc/os-release.bak
 
 # Overwrite /etc/os-release
 cat > /etc/os-release <<EOF
-NAME="$NEW_OS_NAME"
-VERSION="1.0"
+NAME="$OS_NAME"
+VERSION="0.2 (Beta)"
 ID=veil
-PRETTY_NAME="$NEW_PRETTY_NAME"
-VERSION_ID="0.1"
+PRETTY_NAME="$OS_NAME"
+VERSION_ID="0.2"
 EOF
 
 # Optional: update /etc/issue and /etc/issue.net (login banners)
-echo "$NEW_PRETTY_NAME" > /etc/issue
-echo "$NEW_PRETTY_NAME" > /etc/issue.net
+echo "$OS_NAME" > /etc/issue
+echo "$OS_NAME" > /etc/issue.net
 
-info "OS name successfully updated to $NEW_OS_NAME"
+info "OS name successfully updated to $OS_NAME"
 
 # Generate 8 random alphanumeric characters
 RAND=$(tr -dc 'a-z0-9' </dev/urandom | head -c 8)
