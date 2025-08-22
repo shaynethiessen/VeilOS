@@ -34,7 +34,7 @@ freshclam
 systemctl start clamav-freshclam || true
 systemctl enable clamav-freshclam || true
 
-info "Enforcing Firefox HTTPS-Only Mode enforced for all users..."
+info "Enforcing Firefox HTTPS-Only Mode for all users..."
 POLICY_DIR="/usr/lib/firefox-esr/distribution"
 mkdir -p "$POLICY_DIR"
 cat > "$POLICY_DIR/policies.json" <<EOF
@@ -49,13 +49,7 @@ cat > "$POLICY_DIR/policies.json" <<EOF
 EOF
 sync
 
-# Apply policy to existing user profiles
-for profile in /home/*/.mozilla/firefox/*.default*; do
-    [ -d "$profile" ] || continue
-    info "Resetting HTTPS-Only preference in $profile"
-    # Remove any cached preference that might conflict
-    sed -i '/^user_pref("dom.security.https_only_mode",/d' "$profile/prefs.js" 2>/dev/null || true
-done
-sync
+# Clear existing firefox profiles
+rm -rf /home/*/.mozilla/firefox
 
 info "Security Configuration Complete!"
