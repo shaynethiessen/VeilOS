@@ -44,11 +44,11 @@ echo "$NEW_HOSTNAME" > /etc/hostname
 
 # Update /etc/hosts
 # Replace 127.0.0.1 and 127.0.1.1 entries
-sed -i "s/^127\.0\.0\.1\s.*/127.0.0.1 localhost $FQDN/" /etc/hosts 2>/dev/null || true
+sed -i "s/^127\.0\.0\.1\s.*/127.0.0.1 localhost/" /etc/hosts 2>/dev/null || true
 if grep -q "127.0.1.1" /etc/hosts; then
-    sed -i "s/^127\.0\.1\.1\s.*/127.0.1.1 $FQDN/" /etc/hosts
+    sed -i "s/^127\.0\.1\.1\s.*/127.0.1.1 $NEW_HOSTNAME/" /etc/hosts
 else
-    info "127.0.1.1 $FQDN" >> /etc/hosts
+    echo "127.0.1.1 $NEW_HOSTNAME" >> /etc/hosts
 fi
 
 info "Hostname and domain successfully set."

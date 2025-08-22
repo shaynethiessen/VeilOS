@@ -40,7 +40,15 @@ info "Enforcing HTTPS-Only Mode in Firefox for all users..."
 MOZILLA_CFG="/usr/lib/firefox-esr/mozilla.cfg"
 cat > "$MOZILLA_CFG" <<'EOF'
 //
-lockPref("dom.security.https_only_mode", true);
+lockPref("dom.security.https_only_mode", true);               // Enforce HTTPS-Only Mode
+lockPref("app.shield.optoutstudies.enabled", false);          // Disable Firefox Studies
+lockPref("browser.crashReports.unsubmittedCheck.enabled", false);   // Disable crash report prompt
+lockPref("browser.crashReports.unsubmittedCheck.autoSubmit2", false); // Prevent auto-submission
+lockPref("datareporting.healthreport.uploadEnabled", false);   // Disable telemetry upload
+lockPref("toolkit.telemetry.enabled", false);                 // Disable telemetry collection
+lockPref("toolkit.telemetry.server", "");                     // Remove telemetry server
+lockPref("app.normandy.enabled", false);                     // Disable Normandy (Studies backend)
+lockPref("app.normandy.api_url", "");                         // Clear Normandy server
 EOF
 chmod 644 "$MOZILLA_CFG"
 
