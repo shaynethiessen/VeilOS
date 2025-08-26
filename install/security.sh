@@ -40,6 +40,15 @@ info "Enforcing HTTPS-Only Mode in Firefox for all users..."
 MOZILLA_CFG="/usr/lib/firefox-esr/mozilla.cfg"
 cat > "$MOZILLA_CFG" <<'EOF'
 //
+//Skip Firefox Startup
+lockPref("browser.shell.checkDefaultBrowser", false);   // Don’t ask to set default browser
+lockPref("browser.startup.homepage_override.mstone", "ignore"); // Skip first-run page
+lockPref("browser.startup.homepage_welcome_url", "");    // Disable welcome page
+lockPref("browser.startup.homepage_welcome_url.additional", ""); // Disable extra welcome pages
+lockPref("browser.aboutWelcome.enabled", false);         // Disable About:Welcome
+lockPref("browser.legacy_default_color_scheme", 1);      // Optional: force system theme
+
+// Set Security/Privacy Settings
 lockPref("dom.security.https_only_mode", true);               // Enforce HTTPS-Only Mode
 lockPref("app.shield.optoutstudies.enabled", false);          // Disable Firefox Studies
 lockPref("browser.crashReports.unsubmittedCheck.enabled", false);   // Disable crash report prompt
@@ -49,6 +58,7 @@ lockPref("toolkit.telemetry.enabled", false);                 // Disable telemet
 lockPref("toolkit.telemetry.server", "");                     // Remove telemetry server
 lockPref("app.normandy.enabled", false);                     // Disable Normandy (Studies backend)
 lockPref("app.normandy.api_url", "");                         // Clear Normandy server
+
 EOF
 chmod 644 "$MOZILLA_CFG"
 

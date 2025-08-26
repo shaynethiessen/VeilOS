@@ -16,7 +16,5 @@ apt-get install -y --no-install-recommends \
   firmware-linux-free firmware-linux-nonfree \
   firmware-iwlwifi firmware-intel-sound firmware-realtek \
   intel-microcode amd64-microcode linux-headers-amd64
-# Create user directories
-xdg-user-dirs-update
 
 info "Firmware Configuration Complete!"
