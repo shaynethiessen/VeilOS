@@ -51,3 +51,33 @@ else
 fi
 
 info "Hostname and domain successfully set."
+
+REPO_DIR="/opt/VeilOS"
+
+# System paths
+DESKTOP_FILE="/usr/share/applications/veil-os.desktop"
+ICON_DIR="/usr/share/icons/hicolor/48x48/apps"
+ICON_FILE="$ICON_DIR/veil-os.png"
+
+# Ensure dirs exist
+mkdir -p "$ICON_DIR"
+
+# Install icon (from repo root)
+install -m 644 "$REPO_DIR/veil-os.png" "$ICON_FILE"
+
+# Create or update the desktop entry
+cat > "$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Veil OS Updater
+Comment=Fetch and install the latest Veil OS updates
+Exec=pkexec $REPO_DIR/install.sh
+Icon=veil-os
+Terminal=true
+Categories=System;Utility;
+EOF
+
+chmod 644 "$DESKTOP_FILE"
+
+info "System-wide Veil OS menu entry installed."
