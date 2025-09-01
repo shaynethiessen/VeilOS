@@ -27,5 +27,5 @@ sudo apt update
 sudo apt install -y git sudo
 sudo git clone https://github.com/shaynethiessen/VeilOS.git /opt/VeilOS
 cd /opt/VeilOS
-sudo ./install.sh
+sudo ./setup.sh
 ```
