@@ -65,7 +65,7 @@ ICON_FILE="$ICON_DIR/veil-os.png"
 mkdir -p "$ICON_DIR"
 
 # Install icon (from repo root)
-install -m 644 "$REPO_DIR/media/logo/full.png" "$ICON_FILE"
+install -m 644 "$REPO_DIR/media/logo/square.png" "$ICON_FILE"
 
 # Update GTK icon cache
 gtk-update-icon-cache -f /usr/share/icons/hicolor
@@ -77,7 +77,7 @@ Version=1.0
 Type=Application
 Name=Veil OS Updater
 Comment=Fetch and install the latest Veil OS updates
-Exec=konsole --hold -e /opt/VeilOS/install.sh
+Exec=konsole --hold -e sudo sh /opt/VeilOS/setup.sh
 Terminal=false
 Icon=/usr/share/icons/hicolor/48x48/apps/veil-os.png
 Categories=System;Utility;
