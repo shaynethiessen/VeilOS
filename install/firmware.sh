@@ -11,10 +11,11 @@ info "Installing firmware-realtek: Realtek wired/wireless/Bluetooth firmware"
 info "Installing intel-microcode: CPU firmware updates for Intel processors"
 info "Installing amd64-microcode: CPU firmware updates for AMD processors"
 info "Installing linux-headers-amd64: kernel headers for building modules"
+info "Installing wpasupplicant: background process that talks to Wi-Fi"
 
 apt-get install -y --no-install-recommends \
   firmware-linux-free firmware-linux-nonfree \
   firmware-iwlwifi firmware-intel-sound firmware-realtek \
-  intel-microcode amd64-microcode linux-headers-amd64
+  intel-microcode amd64-microcode linux-headers-amd64 wpasupplicant
 
 info "Firmware Configuration Complete!"
