@@ -54,7 +54,7 @@ info "Hostname and domain successfully set."
 
 REPO_DIR="/opt/VeilOS"
 
-chmod +x "$REPO_DIR/install.sh"
+chmod +x "$REPO_DIR/setup.sh"
 
 # System paths
 DESKTOP_FILE="/usr/share/applications/veil-os.desktop"
