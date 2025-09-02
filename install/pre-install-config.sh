@@ -1,6 +1,9 @@
 #!/bin/sh
 . ./helper.sh;
 
+info "Updating installer..."
+git pull
+
 # Set APT sources for VeilOS
 cat > /etc/apt/sources.list <<EOF
 # VeilOS Packages
