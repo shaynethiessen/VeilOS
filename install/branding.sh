@@ -54,6 +54,8 @@ info "Hostname and domain successfully set."
 
 REPO_DIR="/opt/VeilOS"
 
+chmod +x "$REPO_DIR/install.sh"
+
 # System paths
 DESKTOP_FILE="/usr/share/applications/veil-os.desktop"
 ICON_DIR="/usr/share/icons/hicolor/48x48/apps"
@@ -63,7 +65,10 @@ ICON_FILE="$ICON_DIR/veil-os.png"
 mkdir -p "$ICON_DIR"
 
 # Install icon (from repo root)
-install -m 644 "$REPO_DIR/veil-os.png" "$ICON_FILE"
+install -m 644 "$REPO_DIR/media/logo/full.png" "$ICON_FILE"
+
+# Update GTK icon cache
+gtk-update-icon-cache -f /usr/share/icons/hicolor
 
 # Create or update the desktop entry
 cat > "$DESKTOP_FILE" <<EOF
@@ -72,9 +77,9 @@ Version=1.0
 Type=Application
 Name=Veil OS Updater
 Comment=Fetch and install the latest Veil OS updates
-Exec=pkexec $REPO_DIR/install.sh
-Icon=veil-os
-Terminal=true
+Exec=konsole -e pkexec $REPO_DIR/install.sh
+Terminal=false
+Icon=/usr/share/icons/hicolor/48x48/apps/veil-os.png
 Categories=System;Utility;
 EOF
 
