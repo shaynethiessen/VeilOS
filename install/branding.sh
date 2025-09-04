@@ -1,7 +1,7 @@
 #!/bin/sh
 . ./helper.sh;
 
-info "Installing okular: Boot animation, logger and I/O multiplexer"
+info "Installing plymouth: Boot animation, logger and I/O multiplexer"
 apt-get install -y --no-install-recommends plymouth
 
 OS_NAME="VeilOS"
