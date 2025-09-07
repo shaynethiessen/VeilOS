@@ -30,13 +30,18 @@ info " - lzop: fast compression tool"
 info " - rar: proprietary RAR archiver"
 info " - unrar-free"
 
+info "Installing systemd-timesyncd: Sync time to internet."
+
 apt-get install -y --no-install-recommends \
   plasma-systemmonitor xdg-user-dirs kinfocenter systemsettings \
   kde-spectacle kcalc partitionmanager kscreen plasma-workspace-wallpapers \
   filelight kio-extras plasma-discover kate alsa-utils ark 7zip bzip2 \
-  unar unzip zip arj lzop rar unrar-free
+  unar unzip zip arj lzop rar unrar-free systemd-timesyncd
 
-# Create user directories
+info Create user directories
 xdg-user-dirs-update
+
+info "Sync system time"
+systemctl enable systemd-timesyncd --now
 
 info "Utilities Configuration Complete!"
