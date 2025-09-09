@@ -13,11 +13,20 @@ info "Installing amd64-microcode: CPU firmware updates for AMD processors"
 info "Installing linux-headers-amd64: kernel headers for building modules"
 info "Installing wpasupplicant: background process that talks to Wi-Fi"
 info "Installing ntfs-3g: support for NTFS format"
+info "Installing nvidia-driver: NVIDIA proprietary driver"
+info "Installing nvidia-vdpau-driver: NVIDIA VDPAU video acceleration driver"
+info "Installing nvidia-vaapi-driver: NVIDIA VAAPI video acceleration driver"
 
 apt-get install -y --no-install-recommends \
   firmware-linux-free firmware-linux-nonfree \
   firmware-iwlwifi firmware-intel-sound firmware-realtek \
   intel-microcode amd64-microcode linux-headers-amd64 wpasupplicant \
-  ntfs-3g
+  ntfs-3g nvidia-driver nvidia-vdpau-driver nvidia-vaapi-driver
+
+info "Enabling NVIDIA DRM KMS for Wayland"
+if lsmod | grep -q nvidia; then
+    echo "options nvidia-drm modeset=1" | tee /etc/modprobe.d/nvidia-kms.conf > /dev/null
+    update-initramfs -u
+fi
 
 info "Firmware Configuration Complete!"
