@@ -31,12 +31,13 @@ info " - rar: proprietary RAR archiver"
 info " - unrar-free"
 
 info "Installing systemd-timesyncd: Sync time to internet."
+info "Installing curl: Tool for transferring data from or to a server."
 
 apt-get install -y --no-install-recommends \
   plasma-systemmonitor xdg-user-dirs kinfocenter systemsettings \
   kde-spectacle kcalc partitionmanager kscreen plasma-workspace-wallpapers \
   filelight kio-extras plasma-discover kate alsa-utils ark 7zip bzip2 \
-  unar unzip zip arj lzop rar unrar-free systemd-timesyncd
+  unar unzip zip arj lzop rar unrar-free systemd-timesyncd curl
 
 info Create user directories
 xdg-user-dirs-update
