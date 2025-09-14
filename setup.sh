@@ -20,6 +20,7 @@ sh ./install/media.sh
 sh ./install/office.sh
 sh ./install/security.sh
 sh ./install/utilities.sh
+sh ./install/devops.sh
 sh ./install/branding.sh
 sh ./install/post-install-config.sh
 
