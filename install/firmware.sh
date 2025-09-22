@@ -17,11 +17,19 @@ info "Installing nvidia-driver: NVIDIA proprietary driver"
 info "Installing nvidia-vdpau-driver: NVIDIA VDPAU video acceleration driver"
 info "Installing nvidia-vaapi-driver: NVIDIA VAAPI video acceleration driver"
 
+info "Installing audio packages: PulseAudio, PipeWire, and WirePlumber"
+info "pulseaudio: classic Linux sound server"
+info "pulseaudio-utils: command-line tools for PulseAudio"
+info "pipewire: modern audio/video server"
+info "pipewire-pulse: PulseAudio compatibility layer for PipeWire"
+info "wireplumber: PipeWire session manager"
+
 apt-get install -y --no-install-recommends \
   firmware-linux-free firmware-linux-nonfree \
   firmware-iwlwifi firmware-intel-sound firmware-realtek \
   intel-microcode amd64-microcode linux-headers-amd64 wpasupplicant \
-  ntfs-3g nvidia-driver nvidia-vdpau-driver nvidia-vaapi-driver
+  ntfs-3g nvidia-driver nvidia-vdpau-driver nvidia-vaapi-driver \
+  pulseaudio pulseaudio-utils pipewire pipewire-pulse wireplumber
 
 info "Enabling NVIDIA DRM KMS for Wayland"
 if lsmod | grep -q nvidia; then
