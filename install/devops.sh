@@ -18,7 +18,7 @@ mkdir -p /etc/xdg/autostart-files
 tee /etc/xdg/autostart-files/yakuake.desktop > /dev/null <<'EOF'
 [Desktop Entry]
 Type=Application
-Exec=yakuake --hide
+Exec=yakuake
 Hidden=false
 X-GNOME-Autostart-enabled=true
 Name=Yakuake
