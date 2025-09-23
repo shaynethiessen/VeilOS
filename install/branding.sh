@@ -71,7 +71,7 @@ install -m 644 "$REPO_DIR/media/logo/square.png" "$ICON_FILE"
 gtk-update-icon-cache -f /usr/share/icons/hicolor
 
 # Create or update the desktop entry
-sudo tee "$DESKTOP_FILE" > /dev/null <<EOF
+tee "$DESKTOP_FILE" > /dev/null <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
