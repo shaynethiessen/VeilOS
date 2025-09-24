@@ -39,12 +39,14 @@ info " - kde-config-powerdevil: the configuration module for System Settings"
 info " - upower: provides battery and power information"
 info " - acpi: reads battery, thermal, and AC adapter info from the kernel’s ACPI"
 
+info "Installing kmenuedit: Used to edit the KDE Plasma workspaces menu o"
+
 apt-get install -y --no-install-recommends \
   plasma-systemmonitor xdg-user-dirs kinfocenter systemsettings \
   kde-spectacle kcalc partitionmanager kscreen plasma-workspace-wallpapers \
   filelight kio-extras plasma-discover kate alsa-utils ark 7zip bzip2 \
   unar unzip zip arj lzop rar unrar-free systemd-timesyncd curl \
-  powerdevil kde-config-powerdevil upower acpi
+  powerdevil kde-config-powerdevil upower acpi kmenuedit
 
 info Create user directories
 xdg-user-dirs-update
