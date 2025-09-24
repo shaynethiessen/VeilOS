@@ -6,9 +6,10 @@ info "Setting up DevOps..."
 info "Installing yakuake: Drop-down terminal emulator for KDE."
 info "Installing testdisk: Data recovery and disk partition repair tool."
 info "Installing krdc: Remote Desktop Connection client."
+info "Installing dolphin-plugins: Dolphin plugins for bzr, git, mercurial, subversion, iso mount"
 
 apt-get install -y --no-install-recommends \
-  yakuake testdisk krdc
+  yakuake testdisk krdc dolphin-plugins
 
 info "Start yakuake automatically"
 # Create a system-wide location for the autostart file
