@@ -12,21 +12,27 @@ info "Installing clamtk: graphical interface for ClamAV."
 apt-get install -y --no-install-recommends sudo ufw gufw clamav clamtk
 
 info "Configuring UFW firewall..."
-# Reset previous rules
-ufw --force reset
+if ufw status numbered | grep -q '^\['; then
+  echo "UFW rules detected — skipping firewall setup."
+else
+  # <-- place your firewall commands here
+  info "Configuring UFW firewall..."
+  # Reset previous rules
+  ufw --force reset
 
-# Default deny
-ufw default deny incoming
-ufw default deny outgoing
+  # Default deny
+  ufw default deny incoming
+  ufw default deny outgoing
 
-# Allow essential outgoing connections
-ufw allow out 53     # DNS
-ufw allow out 443    # HTTPS
-ufw allow out 123    # NTP
+  # Allow essential outgoing connections
+  ufw allow out 53     # DNS
+  ufw allow out 443    # HTTPS
+  ufw allow out 123    # NTP
 
-ufw --force enable
-systemctl enable ufw
-systemctl start ufw
+  ufw --force enable
+  systemctl enable ufw
+  systemctl start ufw
+fi
 
 info "Updating ClamAV virus database..."
 systemctl stop clamav-freshclam || true
